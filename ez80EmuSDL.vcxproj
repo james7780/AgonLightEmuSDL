@@ -148,6 +148,8 @@
     <ClCompile Include="utils.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="agon_font.h" />
+    <ClInclude Include="agon_palette.h" />
     <ClInclude Include="agon_vdp.h" />
     <ClInclude Include="getopt.h" />
     <ClInclude Include="utils.h" />

@@ -5,7 +5,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "agon_vdp.h"
-#include "font_agon.h"					// fotn data from VDP src
+#include "agon_font.h"					// fotn data from VDP src
+#include "agon_palette.h"
 #include "debug/debug.h"
 
 #include <SDL.h>
@@ -40,8 +41,6 @@ static uint8_t vdp_serial_output_queue_len;																		// Current serial b
 static uint8_t vdp_serial_input_buffer[VDP_SERIAL_OUTPUT_BUFFER_SIZE];        // VDP intput serial buffer
 static uint8_t vdp_serial_input_queue_len;																		// Current input serial buffer length
 
-
-
 #define TEXT_COLUMNS    80
 #define TEXT_ROWS       24
 
@@ -54,7 +53,11 @@ struct {
 		uint8_t cursorX;
 		uint8_t cursorY;
 		uint8_t cursorEnabled;
-
+		SDL_Colour textForeColour;
+		SDL_Colour textBackColour;
+		SDL_Colour gfxColour;
+		uint16_t originX;
+		uint16_t originY;
 } VDP_State;
 
 //VDP_State_t VDP_State;
@@ -71,6 +74,15 @@ static SDL_Renderer *sdlRenderer = NULL;
 void handle_VDU_command();
 void drawChar(uint8_t c);
 void drawString(char *s);
+
+// Helper function
+void SetSDLColour(SDL_Colour *colour, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+	colour->r = r;
+	colour->g = g;
+	colour->b = b;
+	colour->a = a;
+}
 
 /// Add a character to the output serial buffer
 /// @param c                Char to add to the output buffer
@@ -106,6 +118,84 @@ static uint8_t vdp_unqueue_char()
         }
 
     return retval;
+}
+
+/// Clear the screen
+void cls()
+{
+	// Fill the window with a black rectangle
+	SDL_FillRect( sdlSurface, NULL, SDL_MapRGB( sdlSurface->format, 0, 0, 0 ) );
+
+	// Update the window display
+	SDL_UpdateWindowSurface( sdlWindow );
+}
+
+// Change video resolution
+// Parameters:
+// - colours: Number of colours per pixel (2, 4, 8, 16 or 64)
+// - modeLine: A modeline string (see the FagGL documentation for more details)
+void change_resolution(int colours, char * modeLine)
+{
+	//fabgl::VGABaseController * controller = get_VGAController(colours);
+
+	//if(controller != nullptr) {							// Do we have a valid controller to switch to?
+	//	VGAColourDepth = colours;						// Set the number of colours per pixel
+	//	if(VGAController != controller) {				// Is it a different controller?
+	//		if(VGAController) {							// If there is an existing controller running then
+	//			VGAController->end();					// end it
+	//		}
+	//		VGAController = controller;					// Switch to the new controller
+	//		VGAController->begin();						// And spin it up
+	//	}
+	//	if(modeLine) {									// If modeLine is not a null pointer then
+	//		VGAController->setResolution(modeLine);		// Set the resolution
+	//	}
+	//}
+}
+
+// Set the video mode
+// Parameters:
+// - mode: The video mode
+// 
+void set_mode(int mode) {
+	//if(numsprites) {
+	//	numsprites = 0;
+	//	VGAController->removeSprites();
+	//	VGAController->refreshSprites();
+	//}
+ // 	delete Canvas;
+	//switch(mode) {
+	//	case 0:
+	//		change_resolution(2, SVGA_1024x768_60Hz);
+ //     		break;
+	//	case 1:
+	//		change_resolution(16, VGA_512x384_60Hz);
+ //     		break;
+ //   	case 2:
+	//		change_resolution(64, VGA_320x200_75Hz);
+ //     		break;
+ // 	}
+ // 	Canvas = new fabgl::Canvas(VGAController);
+ //	gfg = Color::BrightWhite;
+	//tfg = Color::BrightWhite;
+	//tbg = Color::Black;
+ // 	Canvas->selectFont(&fabgl::FONT_AGON);
+ // 	Canvas->setGlyphOptions(GlyphOptions().FillBackground(true));
+ // 	Canvas->setPenWidth(1);
+	SetSDLColour(&VDP_State.textForeColour, 255, 255, 255, SDL_ALPHA_OPAQUE);
+	SetSDLColour(&VDP_State.textBackColour, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SetSDLColour(&VDP_State.gfxColour, 255, 255, 255, SDL_ALPHA_OPAQUE);
+
+	VDP_State.screenMode = mode;
+	VDP_State.cursorX = 0;
+	VDP_State.cursorY = 0;
+	VDP_State.cursorEnabled = 1;
+	VDP_State.originX = 0;
+	VDP_State.originY = 0;
+
+	cls();
+	//debug_log("set_mode: canvas(%d,%d)\n\r", Canvas->getWidth(), Canvas->getHeight());
+	printf("set_mode(%d)\n", mode);
 }
 
 /// Initilaise VDP ("boot" VDP)
@@ -161,42 +251,26 @@ int vdp_init() {
 	// Update the window display
 	SDL_UpdateWindowSurface( sdlWindow );
 
-
-
-
 	// Wait
 	//system("pause");
 
-	//// Destroy the window. This will also destroy the surface
-	//SDL_DestroyWindow( window );
-
-	//// Quit SDL
-	//SDL_Quit();
-	//
-	//// End the program
-	//return 0;
-
 	// Setup VDP state
-	VDP_State.screenMode = 0;
-	VDP_State.cursorX = 0;
-	VDP_State.cursorY = 0;
-	VDP_State.cursorEnabled = 1;
+	set_mode(0);
 
+  // Clear text screen mirror
+  memset(screenBufferText, 0, TEXT_COLUMNS * TEXT_ROWS);
 
-    // Clear screen
-    memset(screenBufferText, 0, TEXT_COLUMNS * TEXT_ROWS);
+  // Write VDP version to the screen   (boot_screen() in video.ino)
+  drawString("Agon Quark emulated VDP Version 1.02");
+  drawChar('\n');
 
-    // Write VDP version to the screen
-   	drawString("Agon Quark emulated VDP Version 1.02");
-    drawChar('\n');
+  vdp_serial_output_queue_len = 0;
+  vdp_serial_input_queue_len = 0;
 
-    vdp_serial_output_queue_len = 0;
-    vdp_serial_input_queue_len = 0;
+  //memset(vdp_output_buffer, blah blah blah);
 
-    //memset(vdp_output_buffer, blah blah blah);
-
-    // 1. Put Esc char (27) in output serial buffer to signal eZ80 that we are ready
-    vdp_queue_char(27);
+  // 1. Put Esc char (27) in output serial buffer to signal eZ80 that we are ready
+  vdp_queue_char(27);
 
 	return 0;
 }
@@ -216,25 +290,27 @@ void vdp_shutdown()
 
 /// Read from VDP status (port 0xC5 (197))
 /// @return         VDP status
-uint8_t vdp_read_status_byte() {
-    // TODO - Check this and correct!
-    // Should return 1 if data available, 0 if no data pending
-    uint8_t status = UART_LSR_TEMT;                     // Set incoming transmit empty, so CPU will send data
-    if (vdp_serial_output_queue_len > 0)
-        status |= UART_LSR_DATA_READY;
+uint8_t vdp_read_status_byte()
+{
+  // TODO - Check this and correct!
+  // Should return 1 if data available, 0 if no data pending
+  uint8_t status = UART_LSR_TEMT;                     // Set incoming transmit empty, so CPU will send data
+  if (vdp_serial_output_queue_len > 0)
+      status |= UART_LSR_DATA_READY;
     
-    return status;               // Nothing in queue
+  return status;               // Nothing in queue
 }
 
 /// Read from VDP serial port (UART) - Read from CPU!
 /// @return         Byte at head of VDP output serial queue
-uint8_t vdp_read_serial() {
-    if (vdp_serial_output_queue_len > 0)
-        {
-        return vdp_unqueue_char();
-        }
+uint8_t vdp_read_serial()
+{
+  if (vdp_serial_output_queue_len > 0)
+      {
+      return vdp_unqueue_char();
+      }
 
-    return 0;
+  return 0;
 }
 
 /// Write to VDP serial port (UART) - ie Write from CPU!
@@ -337,18 +413,11 @@ void cursorTab(uint8_t x, uint8_t y)
 	VDP_State.cursorY = y;
 }
 
-void cls()
-{
-	// Fill the window with a black rectangle
-	SDL_FillRect( sdlSurface, NULL, SDL_MapRGB( sdlSurface->format, 0, 0, 0 ) );
 
-	// Update the window display
-	SDL_UpdateWindowSurface( sdlWindow );
-}
 
 void vdu_mode(uint8_t mode)
 {
-	VDP_State.screenMode = mode;
+	set_mode(mode);
 }
 
 // Forward declarations
@@ -405,7 +474,7 @@ void vdu_sys()
 		// Warning - can crash the emulator!
 		if (vdp_serial_input_queue_len >= 10)
 			{
-			uint8_t *ptr = FONT_AGON_DATA[mode * 8];
+			uint8_t *ptr = &FONT_AGON_DATA[mode * 8];
 			for(int i = 0; i < 8; i++)
 				{
 				*ptr++ = vdp_serial_input_buffer[i + 2];
@@ -500,12 +569,11 @@ void vdu_sys_video() {
   	}
 }
 
-
 /// Handle VDU 29
-void vdu_origin() {
-	// TODO
-	//origin.X = readWord();
-	//origin.Y = readWord();
+void vdu_origin()
+{
+	VDP_State.originX = vdp_serial_input_buffer[1] * 256 * vdp_serial_input_buffer[2];
+	VDP_State.originY = vdp_serial_input_buffer[3] * 256 * vdp_serial_input_buffer[4];
 	//debug_log("vdu_origin: %d,%d\n\r", origin.X, origin.Y);
 }
 
@@ -524,7 +592,8 @@ void drawChar(uint8_t c)
 		if (c < 0x20 || c > 127)
 			c = '?';
 
-		SDL_SetRenderDrawColor(sdlRenderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+		SDL_Colour col = VDP_State.textForeColour;
+		SDL_SetRenderDrawColor(sdlRenderer, col.r, col.g, col.b, col.a);
 		int charDataOffset = (c - 0x20) * 8;
 		for (int y = 0; y < CHARHEIGHT; y++)
 			{
@@ -543,6 +612,7 @@ void drawChar(uint8_t c)
 		// Update the window display
 		SDL_UpdateWindowSurface( sdlWindow );
 
+		// Also draw to mirrored text screen (command line)
     screenBufferText[VDP_State.cursorY][VDP_State.cursorX] = c;
     drawTextScreen();
 }
@@ -556,6 +626,28 @@ void drawString(char *s)
       }
 }
 
+void vdu_colour()
+{
+	uint8_t index = vdp_serial_input_buffer[1];
+	if(index >= 0 && index < 64)
+		{
+		RGB888 c = colourLookup[index];
+		SetSDLColour(&VDP_State.textForeColour, c.r, c.g, c.b, SDL_ALPHA_OPAQUE);
+		//debug_log("vdu_colour: tfg %d = %d,%d,%d\n\r", colour, tfg.R, tfg.G, tfg.B);
+		}
+	else if(index >= 128 && index < 192)
+		{
+		//tbg = colourLookup[index - 128];
+		RGB888 c = colourLookup[index - 128];
+		SetSDLColour(&VDP_State.textBackColour, c.r, c.g, c.b, SDL_ALPHA_OPAQUE);
+		//debug_log("vdu_colour: tbg %d = %d,%d,%d\n\r", colour, tbg.R, tbg.G, tbg.B);	
+		}
+	else
+		{
+		//debug_log("vdu_colour: invalid colour %d\n\r");
+		printf("vdu_colour: invalid colour %d\n", index);
+		}
+}
 
 /// Handle a VDU command from the serial port
 void handle_VDU_command()
@@ -599,9 +691,15 @@ void handle_VDU_command()
 			break;
 		case 0x10:	// CLG
 			//clg();
+			// TODO - Fix
+			cls(); vdp_unqueue_input(1);
 			break;
 		case 0x11:	// COLOUR
-			//vdu_colour();
+			if (vdp_serial_input_queue_len >= 2)
+				{
+				vdu_colour();
+				vdp_unqueue_input(2);
+				}
 			break;
 		case 0x12:  // GCOL
 			//vdu_gcol();
@@ -627,7 +725,7 @@ void handle_VDU_command()
 			//vdu_plot();
 			break;
 		case 0x1D:	// VDU_29
-			if (vdp_serial_input_queue_len > 4)
+			if (vdp_serial_input_queue_len >= 5)
 			{
 			vdu_origin();
 			vdp_unqueue_input(5);
@@ -645,7 +743,7 @@ void handle_VDU_command()
 			break;
 		case 0x7F:  // Backspace
 			cursorLeft();
-			drawChar(VDP_State.cursorX, VDP_State.cursorY, " ");
+			drawChar(' ');				// Will not work as we don't erase bg when we put char
 			vdp_unqueue_input(1);
 			break;
 		default :		// Unhandled VDU code
@@ -653,9 +751,6 @@ void handle_VDU_command()
 			vdp_unqueue_input(1);
 			break;
 		}
-
-
-
 }
 
 /// Give the VDP a chance to do some processing

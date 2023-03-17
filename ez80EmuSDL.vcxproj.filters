@@ -38,5 +38,11 @@
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="agon_font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="agon_palette.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
