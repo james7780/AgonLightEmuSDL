@@ -1,0 +1,141 @@
+1. VDP "ready" Signal
+	- After VDP has initialised, it will send Esc (27) to eZ80 via the UART
+	- Agon eZ80 firmware (MOS) boot code will wait for Esc from VDP 
+
+2. VDP comms
+	- VDP will send keypress codes to eZ80 via the UART
+	- VDP will send results of some commands to eZ80
+		- When a note is triggered	VDU 23, 0, 5, channel, waveform, volume, freq, duration
+
+	- MOS can query VDP for:
+		- Cursor position		VDU 23, 0, 2
+		- Char at position X, Y		VDU 23, 0, 3, x, y
+		- Pixel at position X, Y	VDU 23, 0, 4, x, y
+		- Mode information		VDU 23, 0, 6
+
+3. VDP Internal state
+	- Mode
+	- Screen buffer
+	- Current cursor pos
+	- Last keypress
+
+
+4. VDP "commands" that need to be handled (for MOS display):
+	Absolute minimum
+	  - char input commands (MOS putch() or printf())
+	  - cursor movement commands, tab and backspace
+	  - cls
+	  - home
+          - mode
+	  - set cursor pos (VDU 23, 0, 2)
+	
+In fact basic VDP emulation can be copied from VDP video.ino
+
+
+2. MOS boot sequence ("debug" MOS (no autoexec.txt handling))
+	- Init interrupts, timers, SPI and UART0 (UART to VDP)
+		TMR2_CTL - port 86h
+		PB_DR - port 9Ah        (SPI)
+		PB_DDR - port 9Bh
+
+	- Wait for Esc (27) from VDP UART
+	- print "Agon Quark MOS Version blah blah"
+	- Try to mount the SD card.
+
+NB: eZ80F92 register (port) defines in ez80F92.inc
+
+MOS writes 255 to 9B,
+ then 255 to 9F		PC_DDR
+ then 255 to A3		PD_DDR
+ then 0 to 9C		PB_ALT1
+ then 0 to A0		PC_ALT1
+ then 0 to A4		PD_ALT1
+ then 0 to 9D		PB_ALT2
+ then 0 to A1		PC_ALT2
+ then 0 to A5		PD_ALT2
+ then 0 to 80		TMR0_CTL 
+ then 0 to 83		TMR1_CTL
+ then 0 to 86		TMR2_CTL ?
+ then 0 to 89		TMR3_CTL
+ then 0 to 8C		TMR4_CTL
+ then 0 to 8F		TMR5_CTL
+ then 0 to C1		UART0_IER 
+ then 0 to D1		UART1_IER 
+ then 0 to CB		I2C_CTL
+ then 0 to FB		FLASH_IRQ
+ then 4 to BA		SPI_CTL
+
+reads from port ED	RTC_CTL
+writes 0 to port ED	RTC_CTL
+
+writes 4 to port A8	CS0_LBR
+write 11 to port A9	CS0_UBR
+writes 1 to port F0	CS0_BMC
+write 8 to port AA	CS0_CTL
+write 192 to port AB	CS1_LBR
+write 199 to port AC	CS1_UBR
+write 0 to port F1	CS1_BMC
+write 8 to port AD	CS1_CTL
+write 128 to port AE
+write 191 to port AF
+write 0 to port F2
+write 8 to port B0
+write 3 to port B1
+write 3 to port B2
+write 130 to port F3
+write 24 to port B3
+write 0 to port F7	FLASH_ADDR_U
+write 40 to port F8	FLASH_CTRL
+write 183 to B5		RAM_ADDR_U
+write 128 to B4		RAM_CTL
+
+read from 9A		PB_DR
+write 2 to 9A		PB_DR		( |= 2?)
+read from 9B		PB_DDR
+write 2 to port 9B	PB_DDR		( |= 2?)
+read port 9C		PB_ALT1
+write 2 to 9C		PB_ALT1		( |= 2?)
+read port 9D		PB_ALT2
+write 2 to 9D		PB_ALT2		( |= 2?)
+write 0 to 86		TMR2_CTL
+write 4 to 88		TMR2_DR_H
+write 128 to 87		TMR2_DR_L
+read from 86		TMR2_CTL
+write 87 to 86		TMR2_CTL
+read port 9A		PB_DR
+write 4 to 9A
+read port 9C		PB_ALT1
+write 0 to 9C
+read port 9D		PB_ALT2
+write 0 to 9D
+read from 9B		PB_DDR
+write 0 to port 9B
+read from 9A		PB_DR
+write 16 to 9A		PB_DR		( |= 16?)
+...
+write 0 to BA		SPI_CTL
+write 0 to B9		SPI_BRG_H
+write 4 to B8		SPI_BRG_L
+write 48 to BA		SPI_CTL
+<pause>
+write 255 to A2		PD_DR
+writw 255 to A3		PD_DDR
+writw 0 to A4		PD_ALT1
+write 0 to A5		PD_ALT2
+
+
+writes 3 to UART0 (C0)
+writes 0 to C1		UART0_IER	(disable interrupts?)
+read from C3		UART0_LCTL	(waiting for sent?)
+write 0 to port C3
+write 0 to port C4	UART0_MCTL
+write 7 to port C2	UART0_IIR
+write 1 to port C1	UART0_IER	(enable interrupts?)
+write 3 to C3		UART0_LCTL	(8bit, N, 1 stop)
+
+Writes text "Agon Quark MOS..." to VDP via serial (port C0)
+
+read port 9A		PB_DR
+write 16 to 9A		PB_DR != 16 ?
+
+

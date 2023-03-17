@@ -1,0 +1,64 @@
+﻿  asic.c
+D:\dev\AgonLightEmuSDL\emu-library\asic.c(90,21): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+  backlight.c
+  bus.c
+  cert.c
+D:\dev\AgonLightEmuSDL\emu-library\cert.c(89,49): warning C4244: '-=': conversion from '__int64' to 'uint32_t', possible loss of data
+  control.c
+D:\dev\AgonLightEmuSDL\emu-library\control.c(111,38): warning C4244: 'function': conversion from 'double' to 'uint32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\control.c(114,39): warning C4244: 'function': conversion from 'double' to 'uint32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\control.c(117,39): warning C4244: 'function': conversion from 'double' to 'uint32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\control.c(120,39): warning C4244: 'function': conversion from 'double' to 'uint32_t', possible loss of data
+  cpu.c
+D:\dev\AgonLightEmuSDL\emu-library\cpu.c(1455,80): warning C4244: '=': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+  zdis.c
+D:\dev\AgonLightEmuSDL\emu-library\debug\zdis\mne.def(1,1): warning C4003: not enough arguments for function-like macro invocation 'MNE'
+D:\dev\AgonLightEmuSDL\emu-library\debug\zdis\arg.def(1,1): warning C4003: not enough arguments for function-like macro invocation 'ARG'
+D:\dev\AgonLightEmuSDL\emu-library\debug\zdis\zdis.c(109,5): warning C4003: not enough arguments for function-like macro invocation 'JR'
+D:\dev\AgonLightEmuSDL\emu-library\debug\zdis\zdis.c(116,23): warning C4003: not enough arguments for function-like macro invocation 'RET'
+D:\dev\AgonLightEmuSDL\emu-library\debug\zdis\zdis.c(116,69): warning C4003: not enough arguments for function-like macro invocation 'CALL'
+  emu.c
+D:\dev\AgonLightEmuSDL\emu-library\emu.c(145,82): warning C4244: '=': conversion from '__int64' to 'uint32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\emu.c(153,82): warning C4244: '=': conversion from '__int64' to 'uint32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\emu.c(161,82): warning C4244: '=': conversion from '__int64' to 'uint32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\emu.c(169,82): warning C4244: '=': conversion from '__int64' to 'uint32_t', possible loss of data
+  extras.c
+  flash.c
+  interrupt.c
+  keypad.c
+  lcd.c
+  link.c
+  mem.c
+D:\dev\AgonLightEmuSDL\emu-library\mem.c(613,23): warning C4101: 'select': unreferenced local variable
+D:\dev\AgonLightEmuSDL\emu-library\mem.c(689,23): warning C4101: 'select': unreferenced local variable
+D:\dev\AgonLightEmuSDL\emu-library\mem.c(798,16): warning C4018: '<': signed/unsigned mismatch
+D:\dev\AgonLightEmuSDL\emu-library\mem.c(829,16): warning C4018: '<': signed/unsigned mismatch
+D:\dev\AgonLightEmuSDL\emu-library\mem.c(834,30): warning C4244: 'function': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+  misc.c
+D:\dev\AgonLightEmuSDL\emu-library\misc.c(36,1): warning C4244: 'initializing': conversion from 'const uint16_t' to 'uint8_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\misc.c(104,75): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\misc.c(75,1): warning C4244: 'initializing': conversion from 'const uint16_t' to 'uint8_t', possible loss of data
+  os-win32.c
+  port.c
+  realclock.c
+  registers.c
+  Generating Code...
+D:\dev\AgonLightEmuSDL\emu-library\port.c(44): warning C4715: 'port_read': not all control paths return a value
+  Compiling...
+  schedule.c
+D:\dev\AgonLightEmuSDL\emu-library\schedule.c(84,67): warning C4244: '=': conversion from 'uint64_t' to 'int32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\schedule.c(175,1): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\schedule.c(217,52): warning C4244: '=': conversion from 'uint64_t' to 'int32_t', possible loss of data
+  sha256.c
+  spi.c
+D:\dev\AgonLightEmuSDL\emu-library\spi.c(425,41): warning C4244: 'function': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+D:\dev\AgonLightEmuSDL\emu-library\spi.c(427,39): warning C4244: 'function': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+  timers.c
+D:\dev\AgonLightEmuSDL\emu-library\timers.c(33,76): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+  disconnected.c
+  dusb.c
+D:\dev\AgonLightEmuSDL\emu-library\usb\dusb.c(441,100): warning C4267: '=': conversion from 'size_t' to 'uint8_t', possible loss of data
+  usb.c
+  vat.c
+  Generating Code...
+  emu-library.vcxproj -> D:\dev\AgonLightEmuSDL\emu-library\x64\Debug\emu-library.lib

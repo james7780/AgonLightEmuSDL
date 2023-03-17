@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\zdis">
+      <UniqueIdentifier>{c3bd0385-0198-4c92-ad60-b3c5068bcbb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\usb">
+      <UniqueIdentifier>{6509d477-a112-4694-8b6e-85141d996579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\zdis">
+      <UniqueIdentifier>{6b83f115-d34a-46cc-b519-fea0838418b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\usb">
+      <UniqueIdentifier>{e0ffd5ad-5606-421d-9581-a8d70218a758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\os">
+      <UniqueIdentifier>{c09fe7a9-f74b-42a2-838a-ff3ebba27639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\os">
+      <UniqueIdentifier>{5a1f1ac0-1834-46d0-92e4-b45a0014da19}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="asic.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="backlight.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bus.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cert.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="control.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cpu.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="emu.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="extras.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="flash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="interrupt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="keypad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lcd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="link.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="misc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="port.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="realclock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="registers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sha256.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="timers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vat.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\zdis\zdis.c">
+      <Filter>Source Files\zdis</Filter>
+    </ClCompile>
+    <ClCompile Include="usb\usb.c">
+      <Filter>Source Files\usb</Filter>
+    </ClCompile>
+    <ClCompile Include="usb\disconnected.c">
+      <Filter>Source Files\usb</Filter>
+    </ClCompile>
+    <ClCompile Include="usb\dusb.c">
+      <Filter>Source Files\usb</Filter>
+    </ClCompile>
+    <ClCompile Include="os\os-win32.c">
+      <Filter>Source Files\os</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="asic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="atomics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="backlight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cemu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cpu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="emu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="extras.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="flash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="interrupt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="keypad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lcd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="link.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="port.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="realclock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="registers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sha256.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="spi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="timers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="debug\zdis\zdis.h">
+      <Filter>Header Files\zdis</Filter>
+    </ClInclude>
+    <ClInclude Include="usb\device.h">
+      <Filter>Header Files\usb</Filter>
+    </ClInclude>
+    <ClInclude Include="usb\fotg210.h">
+      <Filter>Header Files\usb</Filter>
+    </ClInclude>
+    <ClInclude Include="usb\usb.h">
+      <Filter>Header Files\usb</Filter>
+    </ClInclude>
+    <ClInclude Include="os\os.h">
+      <Filter>Header Files\os</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="emscripten.mk" />
+    <None Include="LICENSE" />
+    <None Include="Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+</Project>

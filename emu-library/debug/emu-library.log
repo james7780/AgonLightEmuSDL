@@ -1,0 +1,49 @@
+﻿  asic.c
+D:\dev\ez80EmuSDL\emu-library\asic.c(90,21): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+  backlight.c
+  bus.c
+  cert.c
+  control.c
+D:\dev\ez80EmuSDL\emu-library\control.c(111,38): warning C4244: 'function': conversion from 'double' to 'uint32_t', possible loss of data
+D:\dev\ez80EmuSDL\emu-library\control.c(114,39): warning C4244: 'function': conversion from 'double' to 'uint32_t', possible loss of data
+D:\dev\ez80EmuSDL\emu-library\control.c(117,39): warning C4244: 'function': conversion from 'double' to 'uint32_t', possible loss of data
+D:\dev\ez80EmuSDL\emu-library\control.c(120,39): warning C4244: 'function': conversion from 'double' to 'uint32_t', possible loss of data
+  cpu.c
+D:\dev\ez80EmuSDL\emu-library\cpu.c(1455,80): warning C4244: '=': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+  emu.c
+  extras.c
+  flash.c
+  interrupt.c
+  keypad.c
+  lcd.c
+  link.c
+D:\dev\ez80EmuSDL\emu-library\link.c(40,9): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\dev\ez80EmuSDL\emu-library\link.c(66,5): error C4996: 'setbuf': This function or variable may be unsafe. Consider using setvbuf instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  mem.c
+D:\dev\ez80EmuSDL\emu-library\mem.c(613,23): warning C4101: 'select': unreferenced local variable
+D:\dev\ez80EmuSDL\emu-library\mem.c(689,23): warning C4101: 'select': unreferenced local variable
+D:\dev\ez80EmuSDL\emu-library\mem.c(798,16): warning C4018: '<': signed/unsigned mismatch
+D:\dev\ez80EmuSDL\emu-library\mem.c(829,16): warning C4018: '<': signed/unsigned mismatch
+D:\dev\ez80EmuSDL\emu-library\mem.c(834,30): warning C4244: 'function': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+  misc.c
+D:\dev\ez80EmuSDL\emu-library\misc.c(36,1): warning C4244: 'initializing': conversion from 'const uint16_t' to 'uint8_t', possible loss of data
+D:\dev\ez80EmuSDL\emu-library\misc.c(104,75): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+D:\dev\ez80EmuSDL\emu-library\misc.c(75,1): warning C4244: 'initializing': conversion from 'const uint16_t' to 'uint8_t', possible loss of data
+  port.c
+  realclock.c
+  registers.c
+  schedule.c
+D:\dev\ez80EmuSDL\emu-library\schedule.c(84,67): warning C4244: '=': conversion from 'uint64_t' to 'int32_t', possible loss of data
+D:\dev\ez80EmuSDL\emu-library\schedule.c(175,1): warning C4244: 'initializing': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+D:\dev\ez80EmuSDL\emu-library\schedule.c(217,52): warning C4244: '=': conversion from 'uint64_t' to 'int32_t', possible loss of data
+  sha256.c
+  Generating Code...
+D:\dev\ez80EmuSDL\emu-library\port.c(44): warning C4715: 'port_read': not all control paths return a value
+  Compiling...
+  spi.c
+D:\dev\ez80EmuSDL\emu-library\spi.c(425,41): warning C4244: 'function': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+D:\dev\ez80EmuSDL\emu-library\spi.c(427,39): warning C4244: 'function': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+  timers.c
+D:\dev\ez80EmuSDL\emu-library\timers.c(33,76): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+  vat.c
+  Generating Code...

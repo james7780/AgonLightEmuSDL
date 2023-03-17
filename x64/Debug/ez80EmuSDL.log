@@ -1,0 +1,12 @@
+﻿  agon_vdp.c
+D:\dev\AgonLightEmuSDL\agon_vdp.c(408,1): warning C4047: 'initializing': 'uint8_t *' differs in levels of indirection from 'uint8_t'
+D:\dev\AgonLightEmuSDL\agon_vdp.c(648,41): warning C4020: 'drawChar': too many actual parameters
+  getopt.c
+  main.c
+D:\dev\AgonLightEmuSDL\main.c(102,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\dev\AgonLightEmuSDL\main.c(132,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\dev\AgonLightEmuSDL\main.c(142,42): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\dev\AgonLightEmuSDL\main.c(254,9): warning C4101: 'c': unreferenced local variable
+  utils.c
+  Generating Code...
+  ez80EmuSDL.vcxproj -> D:\dev\AgonLightEmuSDL\x64\Debug\ez80EmuSDL.exe
