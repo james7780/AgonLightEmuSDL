@@ -8,7 +8,7 @@ So far, the emulator runs and displayes the boot-up text for the VDP and MOS, bu
 
 You will need Visual Studio C++ to load the solution and build it. Only the x64\Debug build has been set up so far.
 
-
+Feel free to contribute. You can also ask questions in the Agon Programmers facebook group.
 
 **Happy hacking.**
 
