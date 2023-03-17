@@ -1,1 +1,0 @@
-D:\dev\AgonLightEmuSDL\emu-library\x64\Debug\emu-library.lib
