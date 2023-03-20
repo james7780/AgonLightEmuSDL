@@ -11,12 +11,12 @@ extern "C" {
 #include <stdio.h>
 
 typedef struct timer_state {
-    uint32_t counter, reset, match[2];
+    uint32_t counter, reset, match[2];							// 16 bytes
 } timer_state_t;
 
 typedef struct general_timers_state {
-    timer_state_t timer[3];
-    uint32_t control, status, mask, revision;
+    timer_state_t timer[3];									// 48 bytes (0x00 to 0x2F)
+    uint32_t control, status, mask, revision;				// ctrl =  0x30, status = 0x34, mask = 0x38, revision = 0x3C						
     uint32_t delayStatus, delayIntrpt;
     uint8_t reset;
     bool osTimerState;

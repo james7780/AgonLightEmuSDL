@@ -215,17 +215,17 @@ void emu_run(uint64_t ticks) {
     {
         idx = 0;
 
-//        printf("\033[1m\033[31m%06x\033[33m\t", cpu.registers.PC);
-        // ctx.zdis_start_addr = cpu.registers.PC;
+				printf("\033[1m\033[31m%06x\033[33m\t", cpu.registers.PC);
+        ctx.zdis_start_addr = cpu.registers.PC;
         ctx.zdis_end_addr = cpu.registers.PC;
         disassemblyLine[idx] = 0;
         zdis_put_inst(&ctx);
 
-//        printBytes(&ctx);
+        printBytes(&ctx);
 
-//        printf("\033[36m%s\033[37m", disassemblyLine);
+        printf("\033[36m%s\033[37m", disassemblyLine);
 
- //       printRegisters(cpu.registers);
+//       printRegisters(cpu.registers);
 
         sched_process_pending_events();
         if (cpu.abort == CPU_ABORT_RESET) 

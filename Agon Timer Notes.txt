@@ -1,0 +1,8 @@
+Agon Light timer I/O info:
+http://www.zilog.com/docs/ez80acclaim/ps0153.pdf
+6 timers mapped to i/o ports 0x80 to 0x92
+
+
+CEmu TI84 timer mem-mapped I/O information:
+3 timers mapped to mem location $7000
+https://wikiti.brandonw.net/index.php?title=84PCE:Ports:7000

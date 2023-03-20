@@ -41,6 +41,14 @@ static void add_reset_proc(void (*proc)(void)) {
 }
 
 static void plug_devices(void) {
+
+		// JH - reset new port map
+		for (int i = 0; i < 256; i++)
+			{
+			port_map[i].read = NULL;
+			port_map[i].write = NULL;
+			}
+
     /* Port ranges 0x0 -> 0xF */
     port_map[0x0] = init_control();
     port_map[0x1] = init_flash();
@@ -49,7 +57,10 @@ static void plug_devices(void) {
     port_map[0x4] = init_lcd();
     port_map[0x5] = init_intrpt();
     port_map[0x6] = init_watchdog();
-    port_map[0x7] = init_gpt();
+    //port_map[0x7] = init_gpt();							// Timers
+		port_map[0x86] = init_gpt();							// JH
+		port_map[0x87] = init_gpt();
+		port_map[0x88] = init_gpt();
     port_map[0x8] = init_rtc();
     port_map[0x9] = init_protected();
     port_map[0xA] = init_keypad();

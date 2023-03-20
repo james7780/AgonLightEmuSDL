@@ -53,9 +53,9 @@ MOS writes 255 to 9B,
  then 0 to 9D		PB_ALT2
  then 0 to A1		PC_ALT2
  then 0 to A5		PD_ALT2
- then 0 to 80		TMR0_CTL 
+ then 0 to 80		TMR0_CTL 	// Disable all timers
  then 0 to 83		TMR1_CTL
- then 0 to 86		TMR2_CTL ?
+ then 0 to 86		TMR2_CTL
  then 0 to 89		TMR3_CTL
  then 0 to 8C		TMR4_CTL
  then 0 to 8F		TMR5_CTL
@@ -97,15 +97,19 @@ read port 9C		PB_ALT1
 write 2 to 9C		PB_ALT1		( |= 2?)
 read port 9D		PB_ALT2
 write 2 to 9D		PB_ALT2		( |= 2?)
+
+init_timer2(1):
 write 0 to 86		TMR2_CTL
 write 4 to 88		TMR2_DR_H
-write 128 to 87		TMR2_DR_L
+write 128 to 87		TMR2_DR_L	// Set timer reload to $480 (1152) - ~ 1ms ?
 read from 86		TMR2_CTL
-write 87 to 86		TMR2_CTL
+write 87 to 86		TMR2_CTL	// $57 - Enable timer + reload, CLK/16, continuous mode, enable IRQ 
+
+init_spi():
 read port 9A		PB_DR
-write 4 to 9A
+write 4 to 9A				PB_DR |= BIT(2)
 read port 9C		PB_ALT1
-write 0 to 9C
+write 0 to 9C				PB_ALT1 
 read port 9D		PB_ALT2
 write 0 to 9D
 read from 9B		PB_DDR
@@ -113,17 +117,20 @@ write 0 to port 9B
 read from 9A		PB_DR
 write 16 to 9A		PB_DR		( |= 16?)
 ...
-write 0 to BA		SPI_CTL
+mode_spi(4):
+write 0 to BA		SPI_CTL		Disable SPI
 write 0 to B9		SPI_BRG_H
-write 4 to B8		SPI_BRG_L
-write 48 to BA		SPI_CTL
-<pause>
+write 4 to B8		SPI_BRG_L	Set SPI data rate divisor (bps)
+write 48 to BA		SPI_CTL		Enable SPI
+<pause>   (while(i < 8000) i++;
+
+init_UART0():
 write 255 to A2		PD_DR
 writw 255 to A3		PD_DDR
 writw 0 to A4		PD_ALT1
 write 0 to A5		PD_ALT2
 
-
+wait_ESP32():
 writes 3 to UART0 (C0)
 writes 0 to C1		UART0_IER	(disable interrupts?)
 read from C3		UART0_LCTL	(waiting for sent?)
@@ -135,7 +142,8 @@ write 3 to C3		UART0_LCTL	(8bit, N, 1 stop)
 
 Writes text "Agon Quark MOS..." to VDP via serial (port C0)
 
-read port 9A		PB_DR
+read port 9A		PB_DR			PB3,4, 6, 7 are SD card (SPI)
 write 16 to 9A		PB_DR != 16 ?
 
 
+Hangs in delayms() in MOS timer.c 

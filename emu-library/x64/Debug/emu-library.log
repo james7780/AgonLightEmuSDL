@@ -1,1 +1,6 @@
-﻿
+﻿  asic.c
+D:\dev\AgonLightEmuSDL\emu-library\asic.c(101,21): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+  timers.c
+D:\dev\AgonLightEmuSDL\emu-library\timers.c(58,76): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+  Generating Code...
+  emu-library.vcxproj -> D:\dev\AgonLightEmuSDL\emu-library\x64\Debug\emu-library.lib

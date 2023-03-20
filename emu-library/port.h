@@ -14,7 +14,8 @@ typedef struct eZ80portrange {
     void (*write)(uint16_t, uint8_t, bool);
 } eZ80portrange_t;
 
-extern eZ80portrange_t port_map[0x10];
+//extern eZ80portrange_t port_map[0x10];
+extern eZ80portrange_t port_map[0xFF];		// JH
 
 uint8_t port_peek_byte(uint16_t addr);
 uint8_t port_read_byte(uint16_t addr);

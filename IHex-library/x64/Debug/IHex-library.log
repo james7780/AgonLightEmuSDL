@@ -1,1 +1,4 @@
-﻿
+﻿  kk_ihex_read.c
+  kk_ihex_write.c
+  Generating Code...
+  IHex-library.vcxproj -> D:\dev\AgonLightEmuSDL\IHex-library\x64\Debug\IHex-library.lib
